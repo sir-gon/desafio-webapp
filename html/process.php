@@ -9,9 +9,10 @@ require_once $base . '/vendor/autoload.php';
 use GuzzleHttp\Client;
 
 $body = new stdClass();
-$body->run = '12345678-9';
-$body->nombre = 'Gonzalo';
-$body->fechaNacimiento = '1901-02-03';
+$body->run = $_POST['run'] ? $_POST['run'] : '';
+$body->nombre =  $_POST['nombre'] ? $_POST['nombre'] : '';
+$body->fechaNacimiento = $_POST['fechaNacimiento'] ? $_POST['fechaNacimiento'] : '';
+$body->sexo = $_POST['sexo'] ? $_POST['sexo'] : ''; 
 
 $client = new Client([
     'headers' => [

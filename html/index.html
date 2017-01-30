@@ -8,12 +8,14 @@
     <title>Desafio Personas</title>
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" >
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
   <body>
 
@@ -107,15 +109,26 @@
   </div>
 </footer>
 
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/jquery-ui/jquery-ui.min.js" ></script>
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
     // <![CDATA[
         $(document).ready(function() {
+          var d = new Date();
+          var year = d.getYear();
+          console.log(year);
+
+          $( 'input[name="fechaNacimiento"]' ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            yearRange: "1900:" + $.datepicker.formatDate('yy', new Date())
+          });
 
           $( "#formPersona" ).submit(function( event ) {
             // Stop form from submitting normally
@@ -123,7 +136,7 @@
 
             var posting = $.post("process.php",
              {
-               name: $('input[name="nombre"]').val(),
+               nombre: $('input[name="nombre"]').val(),
                run: $('input[name="run"]').val(),
                fechaNacimiento: $('input[name="fechaNacimiento"]').val(),
                sexo: $('input[name="sexo"]:checked').val()
