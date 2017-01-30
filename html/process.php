@@ -24,5 +24,13 @@ $response = $client->post('http://api:8080/persona',
     ['body' => json_encode($body)]
 );
 
-echo '<pre>' . var_export($response->getStatusCode(), true) . '</pre>';
-echo '<pre>' . var_export($response->getBody()->getContents(), true) . '</pre>';
+$json = json_decode($response->getBody()->getContents());
+
+//echo '<pre>' . var_export($response->getStatusCode(), true) . '</pre>';
+//echo '<pre>' . var_export($response->getBody()->getContents(), true) . '</pre>';
+
+echo '<pre>' . var_export($_POST, true) . '</pre>';
+
+echo '<div><b>A&ntilde;os</b>: ' . $json->ageYears  . '</div>';
+echo '<div><b>Meses</b>: ' . $json->ageMonths  . '</div>';
+echo '<div><b>D&iacute;as</b>: ' . $json->ageDays  . '</div>';
