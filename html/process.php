@@ -1,10 +1,9 @@
 <?php
 chdir(dirname(__DIR__));
+$base = dirname(__FILE__);
 
-$base = dirname(__DIR__);
-
-
-require_once $base . '/vendor/autoload.php';
+require_once $base . '/../vendor/autoload.php';
+require_once $base . '/config.php';
 
 use GuzzleHttp\Client;
 
@@ -12,7 +11,7 @@ $body = new stdClass();
 $body->run = $_POST['run'] ? $_POST['run'] : '';
 $body->nombre =  $_POST['nombre'] ? $_POST['nombre'] : '';
 $body->fechaNacimiento = $_POST['fechaNacimiento'] ? $_POST['fechaNacimiento'] : '';
-$body->sexo = $_POST['sexo'] ? $_POST['sexo'] : ''; 
+$body->sexo = $_POST['sexo'] ? $_POST['sexo'] : '';
 
 $client = new Client([
     'headers' => [
@@ -21,14 +20,11 @@ $client = new Client([
     ]
 ]);
 
-$response = $client->post('http://api:8080/persona',
+$response = $client->post($conf['API_URL'],
     ['body' => json_encode($body)]
 );
 
 $json = json_decode($response->getBody()->getContents());
-
-//echo '<pre>' . var_export($response->getStatusCode(), true) . '</pre>';
-//echo '<pre>' . var_export($response->getBody()->getContents(), true) . '</pre>';
 
 echo '<pre>' . var_export($_POST, true) . '</pre>';
 
